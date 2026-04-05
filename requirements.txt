@@ -1,0 +1,14 @@
+langchain>=0.3.0
+langchain-community>=0.3.0
+langchain-ollama>=0.2.0
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
+flask>=3.0
+pydantic>=2.0
+requests>=2.31
+beautifulsoup4>=4.12
+cinemagoer>=2023.5.1
+ragas>=0.2.0
+plotly>=5.18
+python-dotenv>=1.0
+pytest>=8.0

@@ -1,0 +1,32 @@
+# Environment
+.env
+.venv/
+venv/
+env/
+
+# Data files (too large for git)
+data/raw/
+data/processed/
+data/chroma/
+data/cinerag.db
+
+# Keep seed list and directory structure
+!data/seed_movies.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
