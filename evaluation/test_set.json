@@ -1,0 +1,355 @@
+[
+  {
+    "question": "How did action choreography in Telugu cinema evolve from 2000 to 2020?",
+    "query_type": "trend",
+    "ground_truth_answer": "Telugu action evolved from grounded fight sequences in early 2000s films like Pokiri to increasingly VFX-heavy spectacles by the 2010s, culminating in Baahubali's large-scale war sequences and RRR's stylized action set pieces.",
+    "relevant_movies": ["Pokiri", "Magadheera", "Baahubali: The Beginning", "RRR"],
+    "expected_source_types": ["script", "review"]
+  },
+  {
+    "question": "How has the portrayal of female characters in Bollywood changed from the 1990s to the 2020s?",
+    "query_type": "trend",
+    "ground_truth_answer": "Bollywood shifted from predominantly romantic-interest roles in 90s films like DDLJ to more independent, career-driven protagonists in films like Queen and more recently complex characters in films like Stree and Crew.",
+    "relevant_movies": ["Dilwale Dulhania Le Jayenge", "Queen", "Stree", "Crew"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "How did Christopher Nolan's filmmaking style evolve from The Dark Knight to Oppenheimer?",
+    "query_type": "trend",
+    "ground_truth_answer": "Nolan progressed from grounded crime thrillers with practical effects to increasingly complex non-linear narratives and larger-scale productions, culminating in Oppenheimer's blend of intimate character study with epic historical scope.",
+    "relevant_movies": ["The Dark Knight", "Inception", "Interstellar", "Tenet", "Oppenheimer"],
+    "expected_source_types": ["review", "script"]
+  },
+  {
+    "question": "How did the scale of Telugu cinema budgets and VFX usage change from 2005 to 2024?",
+    "query_type": "trend",
+    "ground_truth_answer": "Telugu films went from modest budgets with minimal VFX to Baahubali setting a new benchmark for Indian VFX spectacles, followed by Kalki 2898 AD pushing into science fiction territory with Hollywood-level visual effects.",
+    "relevant_movies": ["Chatrapathi", "Magadheera", "Baahubali: The Beginning", "Kalki 2898 AD"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "How has the superhero genre evolved in Hollywood from 2008 to 2024?",
+    "query_type": "trend",
+    "ground_truth_answer": "The genre went from The Dark Knight's grounded realism to MCU's interconnected universe model, and by the 2020s saw audience fatigue with films like The Marvels and Madame Web underperforming, while fresh takes like Spider-Verse revitalized it.",
+    "relevant_movies": ["The Dark Knight", "Joker", "Spider-Man: Into the Spider-Verse", "The Marvels", "Madame Web"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "How did Bollywood comedy films change from 2000 to 2024?",
+    "query_type": "trend",
+    "ground_truth_answer": "Bollywood comedy evolved from slapstick ensemble films to more satirical and horror-comedy hybrids like Stree, while retaining the commercial masala formula. Films like 3 Idiots blended comedy with social messaging.",
+    "relevant_movies": ["3 Idiots", "Barfi!", "Stree", "Stree 2"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "How did audience expectations for Telugu mass hero films shift from Chiranjeevi's era to the current generation?",
+    "query_type": "trend",
+    "ground_truth_answer": "Audiences moved from expecting pure mass entertainment and star charisma to demanding stronger scripts alongside spectacle. Films like Pushpa succeeded by combining mass appeal with compelling character arcs.",
+    "relevant_movies": ["Simhadri", "Pokiri", "Pushpa: The Rise", "Pushpa 2: The Rule"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "How did Hollywood sci-fi films evolve visually and thematically from The Matrix to Dune Part Two?",
+    "query_type": "trend",
+    "ground_truth_answer": "Sci-fi evolved from The Matrix's cyberpunk aesthetics through Interstellar's hard science approach to Dune's sweeping practical-plus-CGI epic scale, with themes shifting from technology anxiety to ecological and political concerns.",
+    "relevant_movies": ["The Matrix", "Inception", "Interstellar", "Dune", "Dune: Part Two"],
+    "expected_source_types": ["review", "script"]
+  },
+  {
+    "question": "How did the revenge genre in Telugu cinema evolve from 2005 to 2023?",
+    "query_type": "trend",
+    "ground_truth_answer": "Telugu revenge dramas evolved from straightforward narratives in Chatrapathi and Vikramarkudu to more layered stories with emotional depth in Rangasthalam and socio-political undertones in Dasara.",
+    "relevant_movies": ["Chatrapathi", "Vikramarkudu", "Rangasthalam", "Dasara"],
+    "expected_source_types": ["review", "script"]
+  },
+  {
+    "question": "How has Bollywood's approach to patriotic films changed from Lagaan to Pathaan?",
+    "query_type": "trend",
+    "ground_truth_answer": "Patriotic films shifted from period underdog stories like Lagaan and Rang De Basanti's youth activism to high-octane action spectacles like Pathaan and Jawan that blend nationalism with commercial entertainment.",
+    "relevant_movies": ["Lagaan", "Rang De Basanti", "Pathaan", "Jawan"],
+    "expected_source_types": ["review"]
+  },
+
+  {
+    "question": "What storytelling patterns does SS Rajamouli use across his films?",
+    "query_type": "pattern",
+    "ground_truth_answer": "Rajamouli consistently uses an underdog protagonist, elaborate set-piece sequences, themes of loyalty and sacrifice, and epic scale storytelling. From Magadheera to RRR, he builds mythic narratives around larger-than-life heroes.",
+    "relevant_movies": ["Magadheera", "Eega", "Baahubali: The Beginning", "Baahubali 2: The Conclusion", "RRR"],
+    "expected_source_types": ["review", "script"]
+  },
+  {
+    "question": "What recurring themes appear in Trivikram Srinivas's Telugu films?",
+    "query_type": "pattern",
+    "ground_truth_answer": "Trivikram frequently uses witty dialogues, literary references, family sentiment, and a protagonist who outsmarts opponents through intelligence rather than brute force. His films often feature a twist in family relationships.",
+    "relevant_movies": ["Ala Vaikunthapurramuloo", "Khaleja", "Julayi", "Attarintiki Daredi"],
+    "expected_source_types": ["review", "script"]
+  },
+  {
+    "question": "What visual and narrative patterns does Denis Villeneuve use across his films?",
+    "query_type": "pattern",
+    "ground_truth_answer": "Villeneuve favors slow-building tension, vast desolate landscapes, minimal dialogue in key scenes, and themes of communication and isolation. From Arrival's linguistic puzzle to Dune's desert expanses, he maintains a contemplative pace.",
+    "relevant_movies": ["Arrival", "Blade Runner 2049", "Dune", "Dune: Part Two"],
+    "expected_source_types": ["review", "script"]
+  },
+  {
+    "question": "What patterns exist in how Sukumar structures his Telugu films?",
+    "query_type": "pattern",
+    "ground_truth_answer": "Sukumar uses non-linear narratives, morally grey protagonists, rural settings, and twist-driven plots. His films like Arya, Rangasthalam, and Pushpa feature protagonists with obsessive personality traits and raw emotional intensity.",
+    "relevant_movies": ["Arya", "Rangasthalam", "Pushpa: The Rise", "Pushpa 2: The Rule"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What common elements appear in Quentin Tarantino's filmmaking style?",
+    "query_type": "pattern",
+    "ground_truth_answer": "Tarantino consistently uses non-linear storytelling, extended dialogue scenes building tension, sudden violence, pop culture references, chapter-based structure, and a curated soundtrack. Pulp Fiction exemplifies all these traits.",
+    "relevant_movies": ["Pulp Fiction"],
+    "expected_source_types": ["review", "script"]
+  },
+  {
+    "question": "What storytelling patterns does Nolan use in his time-bending films?",
+    "query_type": "pattern",
+    "ground_truth_answer": "Nolan repeatedly uses non-linear timelines, a ticking-clock urgency, exposition through dialogue, IMAX-scale practical sequences, and emotionally distant protagonists wrestling with guilt or loss. Inception, Interstellar, and Tenet all follow this template.",
+    "relevant_movies": ["Inception", "Interstellar", "Tenet", "Oppenheimer"],
+    "expected_source_types": ["review", "script"]
+  },
+  {
+    "question": "What recurring patterns appear in Aamir Khan's film choices?",
+    "query_type": "pattern",
+    "ground_truth_answer": "Aamir Khan gravitates toward social message films with an underdog protagonist challenging the system — from education in 3 Idiots and Taare Zameen Par to sports in Dangal and Lagaan. He typically plays an unconventional rebel figure.",
+    "relevant_movies": ["Lagaan", "3 Idiots", "Dangal", "Taare Zameen Par", "Laal Singh Chaddha"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What patterns exist in how Mahesh Babu's successful Telugu films are structured?",
+    "query_type": "pattern",
+    "ground_truth_answer": "Mahesh Babu's hits typically feature a suave protagonist with witty one-liners, a revenge or justice-driven plot, stylish action sequences, and a romantic subplot. Films like Pokiri, Dookudu, and Srimanthudu follow this formula.",
+    "relevant_movies": ["Pokiri", "Dookudu", "Srimanthudu", "Maharshi"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What common elements define A24-style horror and thriller films?",
+    "query_type": "pattern",
+    "ground_truth_answer": "A24-adjacent films like Get Out and The Substance feature elevated horror with social commentary, slow-burn tension, art-house aesthetics, and metaphorical monsters representing real-world anxieties rather than traditional jump scares.",
+    "relevant_movies": ["Get Out", "The Substance", "Poor Things"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What narrative patterns does Sandeep Reddy Vanga use in his films?",
+    "query_type": "pattern",
+    "ground_truth_answer": "Vanga creates polarizing protagonists with toxic masculinity themes, raw intense performances, obsessive love as a central driver, and visceral violence. Both Arjun Reddy and Animal follow this pattern of a self-destructive male lead.",
+    "relevant_movies": ["Arjun Reddy", "Kabir Singh", "Animal"],
+    "expected_source_types": ["review"]
+  },
+
+  {
+    "question": "What differentiates hit Telugu comedies from flops in the 2010s?",
+    "query_type": "hit_flop",
+    "ground_truth_answer": "Hit Telugu comedies had relatable characters and sharp writing, while flops relied on crude humor and weak scripts. Audience reviews praise hit comedies for genuine laughs and emotional core versus forced gags in flops.",
+    "relevant_movies": ["Julayi", "Attarintiki Daredi", "Balupu"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "Why did Baahubali succeed while Adipurush failed despite both being Indian mythological spectacles?",
+    "query_type": "hit_flop",
+    "ground_truth_answer": "Baahubali succeeded through groundbreaking VFX for its time, strong emotional storytelling, and a compelling hero's journey. Adipurush was criticized for poor CGI quality, weak dialogue writing, and not living up to the source material's gravitas.",
+    "relevant_movies": ["Baahubali: The Beginning", "Adipurush"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What makes a Bollywood action film a hit versus a flop at the box office?",
+    "query_type": "hit_flop",
+    "ground_truth_answer": "Hit Bollywood action films like Pathaan and Jawan combine star power with tight screenwriting and spectacular action. Flops like Shamshera and Radhe suffer from formulaic plots, poor execution, and disconnect with modern audience expectations.",
+    "relevant_movies": ["Pathaan", "Jawan", "War", "Shamshera", "Radhe"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "Why do some star-driven Telugu films flop despite huge budgets?",
+    "query_type": "hit_flop",
+    "ground_truth_answer": "Big-budget Telugu flops like Acharya, Liger, and Agent failed due to weak scripts that relied solely on star power. Reviews consistently cite poor writing, lack of novelty, and disconnect between the star's image and the role offered.",
+    "relevant_movies": ["Acharya", "Liger", "Agent", "Agnyaathavaasi"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What separates critically acclaimed Hollywood films from box office disasters in 2022-2024?",
+    "query_type": "hit_flop",
+    "ground_truth_answer": "Acclaimed films like Everything Everywhere All at Once and Oppenheimer offered original storytelling and strong authorial vision. Disasters like Morbius, Madame Web, and Megalopolis suffered from studio interference, poor scripts, or audience disconnect.",
+    "relevant_movies": ["Everything Everywhere All at Once", "Oppenheimer", "Morbius", "Madame Web", "Megalopolis"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "Why did Pushpa succeed commercially while Saaho underperformed despite similar action scales?",
+    "query_type": "hit_flop",
+    "ground_truth_answer": "Pushpa had a distinctive character-driven story rooted in a unique rural setting, while Saaho was criticized as a generic action film with a convoluted plot that tried to imitate Hollywood without a strong emotional core.",
+    "relevant_movies": ["Pushpa: The Rise", "Saaho"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What differentiates successful Bollywood biopics from failed ones?",
+    "query_type": "hit_flop",
+    "ground_truth_answer": "Successful biopics like Dangal and 12th Fail focus on relatable struggles and authentic emotion. Failed ones like Samrat Prithviraj and Shamshera prioritize spectacle over character depth and lack the emotional authenticity audiences connect with.",
+    "relevant_movies": ["Dangal", "12th Fail", "Samrat Prithviraj", "Shamshera"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "Why did RRR become a global phenomenon while other big-budget Indian films didn't break through internationally?",
+    "query_type": "hit_flop",
+    "ground_truth_answer": "RRR's universal themes of friendship and freedom, combined with Rajamouli's maximalist spectacle and genuinely innovative action sequences, transcended cultural barriers. Other films lacked the same combination of emotional universality and sheer entertainment value.",
+    "relevant_movies": ["RRR", "Baahubali: The Beginning", "Liger"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What makes horror comedies like Stree succeed while other Bollywood horror films fail?",
+    "query_type": "hit_flop",
+    "ground_truth_answer": "Stree balanced genuine scares with sharp humor, cultural specificity, and a feminist undercurrent. Failed horror films typically lack tonal consistency, rely on cheap jump scares, and have weak character development.",
+    "relevant_movies": ["Stree", "Stree 2"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "Why did Cats and Moonfall fail so spectacularly at the box office?",
+    "query_type": "hit_flop",
+    "ground_truth_answer": "Cats suffered from uncanny valley CGI and a baffling creative vision that alienated audiences. Moonfall had a ludicrous premise even by disaster movie standards and poor critical reception. Both lacked the audience goodwill or IP recognition to survive bad reviews.",
+    "relevant_movies": ["Cats", "Moonfall"],
+    "expected_source_types": ["review"]
+  },
+
+  {
+    "question": "Find intense confrontation scenes similar to The Dark Knight's interrogation scene.",
+    "query_type": "general",
+    "ground_truth_answer": "Similar intense confrontation scenes can be found in Pokiri's face-offs between the hero and villain, Gangs of Wasseypur's rivalry sequences, and Pulp Fiction's tense dialogue-driven standoffs.",
+    "relevant_movies": ["The Dark Knight", "Pokiri", "Gangs of Wasseypur", "Pulp Fiction"],
+    "expected_source_types": ["script"]
+  },
+  {
+    "question": "What do reviews say about the cinematography in Oppenheimer?",
+    "query_type": "general",
+    "ground_truth_answer": "Reviews praise Oppenheimer's IMAX cinematography by Hoyte van Hoytema, particularly the black-and-white Strauss sequences and the Trinity test sequence, calling it visually stunning and a technical masterpiece.",
+    "relevant_movies": ["Oppenheimer"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What are the most praised aspects of Rangasthalam according to audience reviews?",
+    "query_type": "general",
+    "ground_truth_answer": "Reviews praise Rangasthalam for Ram Charan's transformative performance, the authentic rural setting, Sukumar's direction, and DSP's music. The hearing-impaired protagonist and period setting are frequently highlighted.",
+    "relevant_movies": ["Rangasthalam"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What do critics say about Everything Everywhere All at Once?",
+    "query_type": "general",
+    "ground_truth_answer": "Critics praise its wildly inventive multiverse concept, Michelle Yeoh's performance, the balance of absurdist comedy with genuine emotional depth about immigrant family dynamics, and its visual creativity on a modest budget.",
+    "relevant_movies": ["Everything Everywhere All at Once"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "How is the villain portrayed in the Baahubali films?",
+    "query_type": "general",
+    "ground_truth_answer": "Bhallaladeva is portrayed as a cunning, physically imposing antagonist driven by jealousy and lust for power. Reviews praise the villain's characterization and Rana Daggubati's performance as a worthy foil to the heroic Baahubali.",
+    "relevant_movies": ["Baahubali: The Beginning", "Baahubali 2: The Conclusion"],
+    "expected_source_types": ["review", "script"]
+  },
+  {
+    "question": "What scenes in The Godfather are most frequently referenced in reviews?",
+    "query_type": "general",
+    "ground_truth_answer": "The horse head scene, the baptism montage, Vito Corleone's death in the garden, and the 'offer he can't refuse' scene are most frequently referenced as iconic moments in reviews.",
+    "relevant_movies": ["The Godfather"],
+    "expected_source_types": ["review", "script"]
+  },
+  {
+    "question": "What do audiences think about Pawan Kalyan's performance in Bheemla Nayak?",
+    "query_type": "general",
+    "ground_truth_answer": "Audience reviews praise Pawan Kalyan's screen presence and intensity in Bheemla Nayak, though some note the film's second half pacing issues. The confrontation scenes between Pawan and Rana Daggubati are particularly praised.",
+    "relevant_movies": ["Bheemla Nayak"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "How is the romance portrayed in Sita Ramam?",
+    "query_type": "general",
+    "ground_truth_answer": "Sita Ramam portrays romance through letters between an army officer and a woman he hasn't met, set against the Kashmir backdrop. Reviews call it one of the most beautiful love stories in recent Telugu cinema, praising its poetic writing.",
+    "relevant_movies": ["Sita Ramam"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What makes Tumbbad unique among Indian horror films?",
+    "query_type": "general",
+    "ground_truth_answer": "Tumbbad blends mythology with horror and a cautionary tale about greed, featuring stunning production design and a non-linear narrative spanning generations. Reviews praise its atmosphere, originality, and the fact that it's unlike any other Indian film.",
+    "relevant_movies": ["Tumbbad"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What are the key dramatic scenes in the Inception script?",
+    "query_type": "general",
+    "ground_truth_answer": "Key dramatic scenes include the zero-gravity hallway fight, Mal's ledge confrontation with Cobb, the snow fortress assault, and the spinning top ending. The script layers these across dream levels for escalating tension.",
+    "relevant_movies": ["Inception"],
+    "expected_source_types": ["script"]
+  },
+  {
+    "question": "How do reviews describe Andhadhun's plot twists?",
+    "query_type": "general",
+    "ground_truth_answer": "Reviews praise Andhadhun's unpredictable plot with constant twists that keep the audience guessing. The blind pianist premise becomes a dark comedy thriller with each scene subverting expectations. The ambiguous ending is frequently discussed.",
+    "relevant_movies": ["Andhadhun"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What do reviews say about the music and soundtrack in Dil Chahta Hai?",
+    "query_type": "general",
+    "ground_truth_answer": "Reviews praise Shankar-Ehsaan-Loy's soundtrack as perfectly capturing the youthful spirit of the film. Songs like 'Koi Kahe' and 'Jaane Kyun' are highlighted as defining a generation of Bollywood music.",
+    "relevant_movies": ["Dil Chahta Hai"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "How is Whiplash's drumming instructor character portrayed?",
+    "query_type": "general",
+    "ground_truth_answer": "Fletcher is portrayed as an abusive perfectionist who uses psychological manipulation and fear to push students beyond their limits. Reviews compare him to a drill sergeant, with J.K. Simmons's performance universally praised as terrifying and magnetic.",
+    "relevant_movies": ["Whiplash"],
+    "expected_source_types": ["review", "script"]
+  },
+  {
+    "question": "What is the audience reception of Arjun Reddy?",
+    "query_type": "general",
+    "ground_truth_answer": "Arjun Reddy polarized audiences — praised for Vijay Deverakonda's raw performance and bold filmmaking, but criticized for glorifying toxic masculinity and substance abuse. It became a cultural phenomenon and was remade as Kabir Singh.",
+    "relevant_movies": ["Arjun Reddy"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What do reviews highlight about Parasite's social commentary?",
+    "query_type": "general",
+    "ground_truth_answer": "Reviews praise Parasite's razor-sharp class commentary, depicting wealth inequality through the spatial metaphor of the rich family's hilltop mansion versus the poor family's semi-basement. The tonal shift from dark comedy to thriller is frequently highlighted.",
+    "relevant_movies": ["Parasite"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "How do audiences describe the emotional impact of Jersey?",
+    "query_type": "general",
+    "ground_truth_answer": "Reviews describe Jersey as deeply emotional, with Nani's portrayal of a failed cricketer's redemption bringing audiences to tears. The father-son relationship and the sacrifice theme are consistently highlighted as the film's strongest elements.",
+    "relevant_movies": ["Jersey"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What makes Mad Max: Fury Road's action sequences stand out?",
+    "query_type": "general",
+    "ground_truth_answer": "Reviews praise Fury Road's practically-shot vehicular action as a masterclass in kinetic filmmaking. The real stunts, in-camera effects, and George Miller's visceral editing created an intensity that CGI-heavy films can't replicate.",
+    "relevant_movies": ["Mad Max: Fury Road"],
+    "expected_source_types": ["review", "script"]
+  },
+  {
+    "question": "How is the concept of time used in Interstellar's script?",
+    "query_type": "general",
+    "ground_truth_answer": "Time is both a scientific plot mechanism (time dilation near the black hole, the 23-year gap) and an emotional weapon — Cooper watching decades of his children's messages is frequently cited as the most devastating scene in the film.",
+    "relevant_movies": ["Interstellar"],
+    "expected_source_types": ["script", "review"]
+  },
+  {
+    "question": "What was the critical reception of Barbie (2023)?",
+    "query_type": "general",
+    "ground_truth_answer": "Barbie received strong reviews for Greta Gerwig's satirical take on the iconic doll, blending feminist commentary with colorful spectacle. Margot Robbie and Ryan Gosling's performances were praised, though some found the messaging heavy-handed.",
+    "relevant_movies": ["Barbie"],
+    "expected_source_types": ["review"]
+  },
+  {
+    "question": "What do reviews say about 12th Fail's storytelling approach?",
+    "query_type": "general",
+    "ground_truth_answer": "Reviews praise 12th Fail for its honest, understated storytelling about an IPS aspirant from a poor background. Vidhu Vinod Chopra's direction and the lead performance are highlighted as authentic and inspiring without being melodramatic.",
+    "relevant_movies": ["12th Fail"],
+    "expected_source_types": ["review"]
+  }
+]

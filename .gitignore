@@ -5,13 +5,21 @@ venv/
 env/
 
 # Data files (too large for git)
-data/raw/
-data/processed/
+data/raw/**
+data/processed/**
 data/chroma/
 data/cinerag.db
 
-# Keep seed list and directory structure
+# Keep seed list and directory structure (.gitkeep files)
 !data/seed_movies.json
+!data/raw/**/
+!data/raw/**/.gitkeep
+!data/processed/**/
+!data/processed/**/.gitkeep
+
+# Evaluation results (regenerable)
+evaluation/results.json
+evaluation/EVAL_REPORT.md
 
 # Python
 __pycache__/

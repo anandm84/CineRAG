@@ -267,41 +267,64 @@ cinerag/
 
 ---
 
-### Phase 6: Evaluation Framework
+### Phase 6: Evaluation Framework [DONE]
 
-#### Task 6.1: Curated Test Set
+#### Task 6.1: Curated Test Set [DONE]
 - File: `evaluation/test_set.json`
 - 50 Q&A pairs: 10 trend, 10 pattern, 10 hit/flop, 20 general
 - Each entry: question, query_type, ground_truth_answer, relevant_movies, expected_source_types
+- Covers all three languages and a mix of movies from the seed list
 
-#### Task 6.2: RAGAS Evaluation Runner
+#### Task 6.2: RAGAS Evaluation Runner [DONE]
 - File: `evaluation/run_eval.py`
-- Metrics: Faithfulness, Answer Relevancy, Context Precision, Context Recall
+- Runs CineRAGChain on all test questions, collects answers + sources
+- Heuristic metrics (always computed): query type accuracy, source type hit rate, movie hit rate, avg response time
+- RAGAS metrics (if library is configured): Faithfulness, Answer Relevancy, Context Precision, Context Recall
+- CLI: `--limit N`, `--query-type trend|pattern|hit_flop|general`
+- Saves full results to `evaluation/results.json`
 
-#### Task 6.3: Evaluation Report
+#### Task 6.3: Evaluation Report [DONE]
 - File: `evaluation/eval_report.py`
-- Markdown report with per-query-type breakdown and worst-performing queries
+- Generates `EVAL_REPORT.md` with:
+  - Overall summary table, RAGAS scores, per-query-type breakdown
+  - Query routing accuracy with misrouted queries listed
+  - Failed queries, missing sources, source type mismatches
+  - Retrieval quality analysis (expected vs actual movie hits)
 
 ---
 
-### Phase 7: Frontend
+### Phase 7: Frontend [DONE]
 
-#### Task 7.1: Flask Application
-- Routes: `GET /`, `POST /query`, `GET /movies`, `GET /stats`
+#### Task 7.1: Flask Application [DONE]
+- Files: `app/main.py`, `app/routes.py`
+- Routes: `GET /` (search UI), `POST /query` (RAG pipeline), `GET /movies` (movie list JSON), `GET /stats` (dashboard page), `GET /api/stats` (stats JSON)
+- Lazy-initialized singletons for CineRAGChain and MetadataStore
+- Frontend filters (language, source type, year range) passed through to the chain
 
-#### Task 7.2: Search Interface
-- Dark-themed, minimal UI with search bar, filter sidebar, result cards
-- AJAX-based query submission
+#### Task 7.2: Search Interface [DONE]
+- Files: `app/templates/base.html`, `app/templates/index.html`, `app/static/css/style.css`, `app/static/js/app.js`
+- Dark-themed, minimal design — vanilla HTML/CSS/JS, no frameworks
+- Search bar with Enter key and button submit
+- 5 clickable example queries
+- Filter row: language dropdown, source type dropdown, year range inputs
+- AJAX query submission with loading spinner and error display
+- Results: query type badge (color-coded), answer box, numbered source cards with movie/year/type/snippet
 
-#### Task 7.3: Stats Dashboard (Optional)
-- Movie counts by language, chunk distribution, top reviewed movies, RAGAS scores
+#### Task 7.3: Stats Dashboard [DONE]
+- File: `app/templates/stats.html`
+- JS-rendered dashboard from `/api/stats` endpoint
+- Cards: total movies, by-language breakdown, hit/flop counts, data availability, vector index chunk count
+- Shows RAGAS eval scores if evaluation has been run
 
 ---
 
-### Phase 8: Documentation and Polish
+### Phase 8: Documentation and Polish [DONE]
 
 #### Task 8.1: README.md [DONE]
-#### Task 8.2: Architecture Diagram
+- Full README with architecture diagram, features, setup instructions, example queries, tech stack rationale, evaluation commands, project structure with per-file descriptions
+
+#### Task 8.2: Architecture Diagram [DONE]
+- Text-based box diagram in README showing full data flow: sources -> ingestion -> chunking -> embedding -> ChromaDB -> query pipeline -> frontend
 
 ---
 

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}CineRAG — Film Analysis Engine{% endblock %}
+
+{% block content %}
+<div class="search-section">
+    <h1 class="hero-title">CineRAG</h1>
+    <p class="hero-sub">Film analysis powered by RAG — search across scripts, reviews &amp; metadata</p>
+
+    <div class="search-box">
+        <input type="text" id="query-input" placeholder="Ask anything about Telugu, Bollywood, or Hollywood cinema..." autocomplete="off">
+        <button id="search-btn">Search</button>
+    </div>
+
+    <div class="example-queries">
+        <span class="example-label">Try:</span>
+        <button class="example" data-q="How did action choreography in Telugu cinema evolve from 2000 to 2020?">Telugu action evolution</button>
+        <button class="example" data-q="What storytelling patterns does SS Rajamouli use across his films?">Rajamouli's patterns</button>
+        <button class="example" data-q="Why did Pushpa succeed while Saaho underperformed?">Pushpa vs Saaho</button>
+        <button class="example" data-q="What do reviews say about Oppenheimer's cinematography?">Oppenheimer reviews</button>
+        <button class="example" data-q="What differentiates hit Telugu comedies from flops in the 2010s?">Hit vs flop comedies</button>
+    </div>
+</div>
+
+<div class="filters-row" id="filters-row">
+    <div class="filter-group">
+        <label>Language</label>
+        <select id="filter-lang">
+            <option value="">All</option>
+            <option value="te">Telugu</option>
+            <option value="hi">Hindi</option>
+            <option value="en">English</option>
+        </select>
+    </div>
+    <div class="filter-group">
+        <label>Source</label>
+        <select id="filter-source">
+            <option value="">All</option>
+            <option value="script">Scripts</option>
+            <option value="review">Reviews</option>
+        </select>
+    </div>
+    <div class="filter-group">
+        <label>Year from</label>
+        <input type="number" id="filter-year-min" placeholder="1970" min="1970" max="2026">
+    </div>
+    <div class="filter-group">
+        <label>Year to</label>
+        <input type="number" id="filter-year-max" placeholder="2025" min="1970" max="2026">
+    </div>
+</div>
+
+<div id="loading" class="loading hidden">
+    <div class="spinner"></div>
+    <span>Analyzing...</span>
+</div>
+
+<div id="error" class="error-box hidden"></div>
+
+<div id="results" class="results hidden">
+    <div class="result-header">
+        <span class="badge" id="query-type-badge"></span>
+        <span class="result-meta" id="result-meta"></span>
+    </div>
+    <div class="answer-box" id="answer-text"></div>
+    <h3 class="sources-title">Sources</h3>
+    <div id="sources-list" class="sources-list"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% endblock %}

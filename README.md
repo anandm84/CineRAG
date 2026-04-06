@@ -5,17 +5,17 @@ A Retrieval-Augmented Generation (RAG) engine for film analysis across Telugu, B
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                      DATA SOURCES                           │
-│  TMDb API (metadata)  ·  IMSDb (scripts)  ·  IMDb (reviews)│
-└──────────────┬──────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                       DATA SOURCES                           │
+│  TMDb API (metadata)  ·  IMSDb (scripts)  ·  IMDb (reviews) │
+└──────────────┬───────────────────────────────────────────────┘
                │
                ▼
-┌──────────────────────────┐     ┌────────────────────┐
-│   Ingestion Pipeline     │────▶│  SQLite (metadata)  │
-│  tmdb_client, scrapers   │     │  + Raw/Processed    │
-└──────────────┬───────────┘     │    JSON files       │
-               │                 └────────────────────┘
+┌──────────────────────────┐      ┌─────────────────────┐
+│   Ingestion Pipeline     │─────▶│  SQLite (metadata)   │
+│  tmdb_client, scrapers   │      │  + Raw/Processed     │
+└──────────────┬───────────┘      │    JSON files        │
+               │                  └─────────────────────┘
                ▼
 ┌──────────────────────────┐
 │   Chunking Pipeline      │
@@ -36,22 +36,33 @@ A Retrieval-Augmented Generation (RAG) engine for film analysis across Telugu, B
 └──────────────┬───────────┘
                │
                ▼
-┌──────────────────────────────────────────────┐
-│              Query Pipeline                   │
-│  User Query ──▶ Query Router ──▶ Hybrid      │
-│                 (keyword)        Retrieval    │
-│                                    │         │
-│                              ┌─────┴──────┐  │
-│                              │  Reranker   │  │
-│                              │ (optional)  │  │
-│                              └─────┬──────┘  │
-│                                    ▼         │
-│                              LLM Generation  │
-│                             (Llama 3.1 8B)   │
-│                                    │         │
-│                                    ▼         │
-│                          Response + Sources   │
-└──────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────┐
+│              Query Pipeline                       │
+│                                                   │
+│  User Query ──▶ Query Router ──▶ Filter          │
+│                 (keyword)        Extraction       │
+│                                    │              │
+│                              Hybrid Retrieval     │
+│                              (semantic + filters) │
+│                                    │              │
+│                              ┌─────┴──────┐      │
+│                              │  Reranker   │      │
+│                              │ (optional)  │      │
+│                              └─────┬──────┘      │
+│                                    ▼              │
+│                              LLM Generation       │
+│                             (Llama 3.1 8B)        │
+│                                    │              │
+│                                    ▼              │
+│                          Response + Sources        │
+└──────────────────────────────────────────────────┘
+               │
+               ▼
+┌──────────────────────────────────────────────────┐
+│              Flask Frontend                       │
+│  Search UI · Filter sidebar · Source cards        │
+│  Stats dashboard · Dark theme                     │
+└──────────────────────────────────────────────────┘
 ```
 
 ## Features
@@ -59,9 +70,12 @@ A Retrieval-Augmented Generation (RAG) engine for film analysis across Telugu, B
 - **Multilingual retrieval** — BGE-M3 embeds Telugu, Hindi, and English into a shared vector space
 - **Metadata-filtered hybrid search** — filter by language, year range, genre, director before semantic search
 - **4 query types** — Trend Analysis, Pattern Detection, Hit/Flop Comparison, General Q&A
-- **150 curated movies** — 50 Telugu, 50 Bollywood, 50 Hollywood (mix of hits and flops)
+- **Keyword-based query routing** — deterministic classification (<1ms), no LLM overhead
+- **150 curated movies** — 50 Telugu, 50 Bollywood, 50 Hollywood (deliberate mix of hits and flops)
 - **Scene-level script chunking** — preserves screenplay structure (INT./EXT. headings)
-- **RAGAS evaluation framework** — faithfulness, relevancy, precision, recall metrics
+- **Cross-encoder reranking** — optional precision boost via `cross-encoder/ms-marco-MiniLM-L-6-v2`
+- **RAGAS evaluation framework** — 50 curated Q&A pairs, faithfulness/relevancy/precision/recall metrics
+- **Dark-themed web UI** — search bar, filter sidebar, source cards, stats dashboard
 - **Fully local** — no paid APIs for inference (Ollama + open-source models)
 
 ## Setup
@@ -112,6 +126,7 @@ python -m embedding.build_index
 
 # Step 3: Start the app
 python -m app.main
+# Opens at http://localhost:5000
 ```
 
 ### Partial / Incremental Runs
@@ -133,6 +148,22 @@ python -m embedding.build_index --rebuild
 python -m embedding.build_index --source-type review
 ```
 
+### Evaluation
+
+```bash
+# Run the full evaluation (50 questions, requires Ollama running)
+python -m evaluation.run_eval
+
+# Quick test with 5 questions
+python -m evaluation.run_eval --limit 5
+
+# Only evaluate trend queries
+python -m evaluation.run_eval --query-type trend
+
+# Generate the markdown report
+python -m evaluation.eval_report
+```
+
 ### Lightweight Mode
 
 If your machine can't handle BGE-M3 (~2.3GB), use the lighter English-only model:
@@ -144,28 +175,38 @@ USE_LIGHTWEIGHT_EMBEDDINGS=true
 
 This switches to `all-MiniLM-L6-v2` (~80MB) — faster but loses multilingual capability.
 
+### Optional: Enable Reranking
+
+```bash
+# In .env:
+USE_RERANKER=true
+```
+
+Loads `cross-encoder/ms-marco-MiniLM-L-6-v2` to rerank top 20 results down to top 5. Improves precision but adds latency.
+
 ## Example Queries
 
 | Query | Type | What It Does |
 |---|---|---|
-| "How did action choreography in Telugu cinema evolve from 2000 to 2020?" | Trend | Filters by year range, sorts chronologically |
-| "What storytelling patterns does SS Rajamouli use across his films?" | Pattern | Filters by director, retrieves across multiple films |
-| "What differentiates hit Telugu comedies from flops in the 2010s?" | Hit/Flop | Separate retrieval for hits vs flops |
-| "Find intense confrontation scenes similar to The Dark Knight interrogation" | General | Pure semantic search across scripts |
+| "How did action choreography in Telugu cinema evolve from 2000 to 2020?" | Trend | Filters by language + year range, sorts context chronologically |
+| "What storytelling patterns does SS Rajamouli use across his films?" | Pattern | Extracts director name, retrieves across multiple films |
+| "What differentiates hit Telugu comedies from flops in the 2010s?" | Hit/Flop | Queries SQLite for hit/flop splits, separate retrieval per group |
+| "Find intense confrontation scenes similar to The Dark Knight interrogation" | General | Pure semantic search across scripts and reviews |
+| "Why did Pushpa succeed while Saaho underperformed?" | Hit/Flop | Comparative analysis with per-movie retrieval |
+| "What do reviews say about Oppenheimer's cinematography?" | General | Filtered to reviews, single-movie deep dive |
 
 ## Tech Stack
 
-| Component | Tool |
-|---|---|
-| Language | Python 3.11+ |
-| Generation LLM | Llama 3.1 8B via Ollama |
-| Embeddings | BGE-M3 (sentence-transformers) |
-| Vector Store | ChromaDB |
-| Metadata Store | SQLite |
-| Framework | LangChain |
-| Frontend | Flask + Jinja2 |
-| Evaluation | RAGAS |
-| Testing | pytest |
+| Component | Tool | Why |
+|---|---|---|
+| Language | Python 3.11+ | Primary language |
+| Generation LLM | Llama 3.1 8B via Ollama | Free, local, strong general capability |
+| Embeddings | BGE-M3 (sentence-transformers) | Multilingual (te/hi/en in one vector space) |
+| Vector Store | ChromaDB | Local, free, native metadata filtering |
+| Metadata Store | SQLite | Structured queries for hit/flop analysis and stats |
+| Frontend | Flask + vanilla JS | Lightweight, no build step |
+| Evaluation | RAGAS + heuristic metrics | Industry-standard RAG evaluation |
+| Testing | pytest | Unit and integration tests |
 
 ## Data Sources
 
@@ -179,14 +220,77 @@ This switches to `all-MiniLM-L6-v2` (~80MB) — faster but loses multilingual ca
 
 ```
 cinerag/
-├── config.py              # Central configuration
-├── data/                  # Raw + processed data, SQLite, ChromaDB
-├── ingestion/             # Data collection pipeline
-├── chunking/              # Text chunking (scripts, reviews)
-├── embedding/             # BGE-M3 embeddings + ChromaDB
-├── retrieval/             # Hybrid search + reranking
-├── generation/            # LLM client, prompts, RAG chains
-├── evaluation/            # RAGAS test set + evaluation runner
-├── app/                   # Flask frontend
-└── tests/                 # pytest test suite
+├── config.py                     # Central configuration (paths, models, thresholds)
+├── requirements.txt              # Python dependencies
+├── .env.example                  # Environment variable template
+│
+├── data/
+│   ├── seed_movies.json          # 150 curated movies (50 te, 50 hi, 50 en)
+│   ├── raw/                      # Raw scraped data (scripts, reviews, metadata)
+│   ├── processed/                # Normalized JSON (scripts, reviews, metadata)
+│   ├── chroma/                   # ChromaDB persistent vector store
+│   └── cinerag.db                # SQLite metadata database
+│
+├── ingestion/                    # Phase 1: Data collection
+│   ├── tmdb_client.py            # TMDb API wrapper (rate-limited, ID + search)
+│   ├── script_scraper.py         # IMSDb scraper (scene boundary parsing)
+│   ├── review_scraper.py         # IMDb reviews via cinemagoer
+│   ├── metadata_store.py         # SQLite CRUD + hit/flop classification
+│   └── run_ingestion.py          # CLI orchestrator (--movies-only, --skip-existing, etc.)
+│
+├── chunking/                     # Phase 2: Text chunking
+│   ├── chunk_models.py           # DocumentChunk Pydantic model
+│   ├── script_chunker.py         # Scene-based splitting (paragraph fallback)
+│   └── review_chunker.py         # Per-review chunking (sentence-split overflow)
+│
+├── embedding/                    # Phase 3: Embedding + indexing
+│   ├── embedder.py               # BGE-M3 wrapper (batch, progress, lightweight fallback)
+│   ├── vector_store.py           # ChromaDB wrapper (upsert, query, metadata filters)
+│   └── build_index.py            # CLI index builder (--rebuild, --source-type)
+│
+├── retrieval/                    # Phase 4: Search pipeline
+│   ├── retriever.py              # CineRetriever (ChromaDB -> DocumentChunk)
+│   ├── hybrid_search.py          # Filter extraction + filtered semantic search
+│   └── reranker.py               # Optional cross-encoder reranking
+│
+├── generation/                   # Phase 5: LLM generation
+│   ├── llm_client.py             # Ollama API wrapper (health check, timeout)
+│   ├── prompts.py                # 4 prompt templates (general, trend, pattern, hit/flop)
+│   ├── query_router.py           # Keyword-based query classification
+│   └── chains.py                 # CineRAGChain (full pipeline orchestrator)
+│
+├── evaluation/                   # Phase 6: Evaluation
+│   ├── test_set.json             # 50 curated Q&A pairs with ground truth
+│   ├── run_eval.py               # Evaluation runner (RAGAS + heuristic metrics)
+│   └── eval_report.py            # Markdown report generator
+│
+├── app/                          # Phase 7: Frontend
+│   ├── main.py                   # Flask app entry point
+│   ├── routes.py                 # Routes: /, /query, /movies, /stats, /api/stats
+│   ├── templates/
+│   │   ├── base.html             # Layout with navbar
+│   │   ├── index.html            # Search interface
+│   │   └── stats.html            # Stats dashboard
+│   └── static/
+│       ├── css/style.css         # Dark theme
+│       └── js/app.js             # AJAX search + stats rendering
+│
+└── tests/                        # Test suite
+    ├── test_chunking.py
+    ├── test_retrieval.py
+    └── test_chains.py
 ```
+
+## Key Design Decisions
+
+1. **ChromaDB over FAISS** — Native metadata filtering is essential for hybrid search. FAISS would need a separate metadata store and manual pre-filtering.
+
+2. **Keyword-based query routing** — Classification in <1ms vs 5-10s with an LLM. Four well-defined categories don't need neural classification.
+
+3. **BGE-M3 for embeddings** — Best multilingual model for Telugu + Hindi + English in a single vector space. A Telugu query retrieves semantically similar English content.
+
+4. **Separate SQLite and ChromaDB** — SQLite handles structured queries (hit/flop joins, aggregations, stats). ChromaDB handles vector similarity with metadata filters. Different tools for different jobs.
+
+5. **Ollama over raw HuggingFace** — One command (`ollama pull`) handles quantization, memory management, and serving. No manual GGUF/GPTQ configuration.
+
+6. **Two-tier evaluation** — Heuristic metrics (type accuracy, source hit rate, movie hit rate) always work locally. RAGAS metrics are optional and require additional LLM configuration.

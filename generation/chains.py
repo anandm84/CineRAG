@@ -169,8 +169,6 @@ class CineRAGChain:
             # Retrieve for each title and merge (ChromaDB doesn't support $in on strings easily)
             all_chunks = []
             for title in titles[:10]:  # Limit to avoid too many queries
-                title_filter = {**build_chroma_filters(base_filters) or {}}
-                # Use a simple title filter
                 chroma_where = {"movie_title": title}
                 try:
                     chunks = self.searcher.retriever.retrieve(

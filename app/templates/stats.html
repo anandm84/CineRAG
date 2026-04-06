@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}CineRAG — Stats{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Populated by JS from /stats endpoint -->
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% endblock %}
